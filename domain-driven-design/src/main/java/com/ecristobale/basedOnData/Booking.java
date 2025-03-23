@@ -9,7 +9,7 @@ public class Booking {
     private Long customerId;
     private Hotel hotel;
     private Room room;
-    private double price; // Calculado como room.getPrice() + impuestos
+    private double price; // Calculated as:  room.getPrice() + taxRate
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private String status;

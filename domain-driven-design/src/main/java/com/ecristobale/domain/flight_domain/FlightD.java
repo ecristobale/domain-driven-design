@@ -33,10 +33,9 @@ public class FlightD {
     }
 
     public void addSeat(PlaneSeatD seat) {
-        if(Objects.isNull(seat)) {
+        if(Objects.isNull(seats)) {
             this.seats = new ArrayList<>();
-        } else {
-            this.seats.add(seat);
         }
+        this.seats.add(seat);
     }
 }
