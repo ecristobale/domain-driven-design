@@ -7,6 +7,7 @@ import lombok.extern.java.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Log
 //@Component
@@ -18,17 +19,36 @@ public class TourDomainServiceImpl implements TourDomainService {
 
     @Override
     public Tour createTour(String tourName) {
-        return null;
+        final var id = UUID.randomUUID().getLeastSignificantBits() & Long.MAX_VALUE;
+
+        // http call
+        final var flights = this.createDummyFlights();
+        // http call
+        final var hotels = this.createDummyHotelBookings();
+
+        final var tour = Tour.builder()
+                .id(id)
+                .tourName(tourName)
+                .flights(flights)
+                .hotelBookings(hotels)
+                .build();
+
+        log.info("Tour created: with id: " + id);
+        return tour;
     }
 
     @Override
-    public void addFlightToTour(String tourId, String flightId) {
-
+    public void addFlightToTour(Tour tour, String flightId) {
+        final var flight = this.getFlight(flightId);
+        tour.addFlight(flight);
+        log.info("Added flight: with id: " + flightId + " to tour: " + tour.getTourName());
     }
 
     @Override
-    public void addHotelBookingToTour(String tourId, String hotelId) {
-
+    public void addHotelBookingToTour(Tour tour, String hotelId) {
+        final var hotel = this.getHotel(hotelId);
+        tour.addHotelBooking(hotel);
+        log.info("Added flight: with id: " + hotelId + " to tour: " + tour.getTourName());
     }
 
     @Override
@@ -41,14 +61,33 @@ public class TourDomainServiceImpl implements TourDomainService {
 
     }
 
-    @Override
-    public HotelBookingDTO getHotel(String hotelId) {
-        return null;
+    /**
+     * HTTP call to Hotel domain
+     */
+    private HotelBookingDTO getHotel(String hotelId) {
+        return HotelBookingDTO.builder()
+                .id(Long.parseLong(hotelId))
+                .hotelName("Grand Plaza " + hotelId) // Adding ID to name to differentiate
+                .address("123 Main Street, City " + hotelId)
+                .price(150.0 + Integer.parseInt(hotelId) * 10) // Different prices by ID
+                .rating(4)
+                .build();
     }
 
-    @Override
-    public FlightDTO getFlight(String flightId) {
-        return null;
+
+    /**
+     * HTTP call to Flight domain
+     */
+
+    private FlightDTO getFlight(String flightId) {
+        return FlightDTO.builder()
+                .id(Long.parseLong(flightId))
+                .flightNumber("FL" + flightId)
+                .origin("New York")
+                .destination("Paris")
+                .price(500.0 + Integer.parseInt(flightId) * 20) // Different prices by ID
+                .airline("Airways International")
+                .build();
     }
 
     /**

@@ -17,7 +17,4 @@ public interface TourDomainService {
 
     void removeHotelBookingFromTour(String tourId, String hotelId);
 
-    HotelBookingDTO getHotel(String hotelId);
-
-    FlightDTO getFlight(String flightId);
 }
