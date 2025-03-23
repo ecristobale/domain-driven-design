@@ -9,12 +9,12 @@ public interface TourDomainService {
 
     Tour createTour(String tourName);
 
-    void addFlightToTour(String tourId, String flightId);
+    void addFlightToTour(Tour tour, String flightId);
 
-    void addHotelBookingToTour(String tourId, String hotelId);
+    void addHotelBookingToTour(Tour tour, String hotelId);
 
-    void removeFlightFromTour(String tourId, String flightId);
+    void removeFlightFromTour(Tour tour, String flightId);
 
-    void removeHotelBookingFromTour(String tourId, String hotelId);
+    void removeHotelBookingFromTour(Tour tour, String hotelId);
 
 }

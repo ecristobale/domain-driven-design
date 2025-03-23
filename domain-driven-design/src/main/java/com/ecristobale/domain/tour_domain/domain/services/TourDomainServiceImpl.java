@@ -7,6 +7,7 @@ import lombok.extern.java.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Log
@@ -52,13 +53,31 @@ public class TourDomainServiceImpl implements TourDomainService {
     }
 
     @Override
-    public void removeFlightFromTour(String tourId, String flightId) {
-
+    public void removeFlightFromTour(Tour tour, String flightId) {
+        final var flightToRemove = tour.getFlights().stream().
+                filter(f -> f.getId().equals(Long.parseLong(flightId)))
+                .findFirst()
+                .orElse(null);
+        if(!Objects.isNull(flightToRemove)) {
+            tour.removeFlight(flightToRemove);
+            log.info("Removed flight: with id: " + flightId + " from tour: " + tour.getTourName());
+        } else {
+            log.info("Flight with id: " + flightId + " not found in tour: " + tour.getTourName());
+        }
     }
 
     @Override
-    public void removeHotelBookingFromTour(String tourId, String hotelId) {
-
+    public void removeHotelBookingFromTour(Tour tour, String hotelId) {
+        final var hotelToRemove = tour.getHotelBookings().stream().
+                filter(h -> h.getId().equals(Long.parseLong(hotelId)))
+                .findFirst()
+                .orElse(null);
+        if(!Objects.isNull(hotelToRemove)) {
+            tour.removeHotelBooking(hotelToRemove);
+            log.info("Removed hotel: with id: " + hotelId + " from tour: " + tour.getTourName());
+        } else {
+            log.info("Hotel with id: " + hotelId + " not found in tour: " + tour.getTourName());
+        }
     }
 
     /**
