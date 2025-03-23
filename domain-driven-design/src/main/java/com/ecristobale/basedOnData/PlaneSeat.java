@@ -1,5 +1,6 @@
 package com.ecristobale.basedOnData;
 
+import com.ecristobale.commons.SeatSize;
 import lombok.Data;
 
 @Data

@@ -1,7 +1,7 @@
 package com.ecristobale.basedOnData;
 
+import com.ecristobale.commons.RoomSize;
 import lombok.Data;
-import java.util.List;
 
 @Data
 public class Room {
