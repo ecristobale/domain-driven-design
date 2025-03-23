@@ -1,0 +1,180 @@
+--- requerimiento ---
+
+entidad: Room (Habitación)
+Descripción:
+
+La entidad Room representa una habitación dentro de un hotel. Debe gestionar la información relevante para su identificación, estado y características, facilitando su asignación y administración.
+
+Requisitos Funcionales:
+
+Identificación Única:
+
+id: La habitación debe tener un identificador único que permita distinguirla de otras habitaciones.
+Información Básica:
+
+roomNumber: Número asignado a la habitación para su localización dentro del hotel.
+floor: Piso en el que se encuentra la habitación.
+Características de la Habitación:
+
+price: Precio por noche de la habitación, representado como un valor decimal.
+size: Tamaño o tipo de la habitación, utilizando un enumerado (RoomSize) que puede ser SINGLE, DOUBLE o SUITE.
+bedType: Tipo de cama disponible (por ejemplo, Single, Double, Suite).
+amenities: Lista de comodidades ofrecidas, como WiFi, TV, Minibar, etc.
+Estado de Disponibilidad:
+
+isAssigned: Indicador booleano que determina si la habitación está asignada/reservada (true) o disponible (false).
+
+-----------------------------------------------------------------------------------
+
+Entidad: Hotel
+Descripción:
+
+La entidad Hotel representa un establecimiento hotelero que ofrece habitaciones para hospedaje. Debe contener información esencial para su identificación, contacto y gestión de habitaciones.
+
+Requisitos Funcionales:
+
+Identificación Única:
+
+id: Identificador único del hotel.
+Información Básica:
+
+name: Nombre oficial del hotel.
+address: Dirección física del hotel.
+phoneNumber y email: Información de contacto para comunicaciones y reservas.
+Calificación y Evaluación:
+
+rating: Calificación del hotel, representada como un entero (por ejemplo, de 1 a 5 estrellas).
+Gestión de Habitaciones:
+
+numberOfRooms: Número total de habitaciones disponibles en el hotel.
+rooms: Lista de objetos Room que representan las habitaciones del hotel.
+
+-----------------------------------------------------------------------------------
+
+Entidad: Booking (Reserva)
+Descripción:
+
+La entidad Booking gestiona las reservas realizadas por los clientes en el hotel. Debe registrar la información del cliente, detalles de la reserva y estado de la misma.
+
+Requisitos Funcionales:
+
+Identificación Única:
+
+id: Identificador único de la reserva.
+Información del Cliente:
+
+customerId: Identificador único del cliente que realiza la reserva.
+Detalles de la Reserva:
+
+hotel: Objeto Hotel que indica en qué hotel se realiza la reserva.
+room: Objeto Room que indica qué habitación ha sido reservada.
+checkInDate y checkOutDate: Fechas de entrada y salida de la reserva.
+Información Financiera:
+
+price: Precio total de la reserva, calculado como el precio de la habitación más impuestos aplicables.
+**Cálculo de impuestos y tarifas adicionales según las políticas del hotel.
+Estado de la Reserva:
+
+status: Estado actual de la reserva (por ejemplo, Confirmado, Pendiente, Cancelado).
+
+-----------------------------------------------------------------------------------
+
+Entidad: PlaneSeat (Asiento de Avión)
+Descripción:
+
+La entidad PlaneSeat representa un asiento individual en un avión. Debe contener información que facilite su identificación, características y estado de asignación.
+
+Requisitos Funcionales:
+
+Identificación Única:
+
+id: Identificador único del asiento.
+Información Básica:
+
+seatNumber: Número o código que identifica al asiento dentro del avión.
+Características del Asiento:
+
+price: Precio del asiento, puede variar según su ubicación y clase.
+size: Categoría del asiento, utilizando un enumerado (SeatSize) como ECONOMY, BUSINESS, FIRST_CLASS.
+isWindowSeat y isAisleSeat: Indicadores booleanos que especifican si el asiento es de ventana o pasillo.
+Estado de Disponibilidad:
+
+isAssigned: Indicador booleano que determina si el asiento está asignado (true) o disponible (false).
+
+-----------------------------------------------------------------------------------
+
+Entidad: Flight (Vuelo)
+Descripción:
+
+La entidad Flight representa un vuelo programado por una aerolínea. Debe gestionar la información relacionada con el vuelo, incluyendo horarios, origen, destino y disponibilidad de asientos.
+
+Requisitos Funcionales:
+
+Identificación Única:
+
+id: Identificador único del vuelo.
+flightNumber: Código de vuelo asignado por la aerolínea.
+Información del Vuelo:
+
+origin: Ciudad o aeropuerto de origen.
+destination: Ciudad o aeropuerto de destino.
+departureTime y arrivalTime: Fechas y horas de salida y llegada.
+isDirect: Indicador booleano que especifica si el vuelo es directo (true) o con escalas (false).
+Aeronave y Capacidad:
+
+planeId: Identificador del avión asignado al vuelo.
+numberOfSeats: Número total de asientos disponibles en el vuelo.
+seats: Lista de objetos PlaneSeat que representan los asientos del vuelo.
+airline: Nombre de la aerolínea que opera el vuelo.
+
+-----------------------------------------------------------------------------------
+
+Entidad: Ticket (Billete de Avión)
+Descripción:
+
+La entidad Ticket gestiona los billetes emitidos para los pasajeros. Debe registrar la información del pasajero, detalles del vuelo y estado del billete.
+
+Requisitos Funcionales:
+
+Identificación Única:
+
+id: Identificador único del billete.
+ticketNumber: Número único del billete emitido.
+Información del Pasajero:
+
+customerId: Identificador único del cliente o pasajero.
+Detalles del Vuelo:
+
+flight: Objeto Flight que indica en qué vuelo está reservado el billete.
+seat: Objeto PlaneSeat que indica el asiento asignado al pasajero.
+Información Financiera:
+
+price: Precio total del billete, calculado como el precio del asiento más impuestos y tarifas adicionales.
+**Cálculo de impuestos y tarifas según las regulaciones de la aerolínea.
+Estado del billete:
+
+status: Estado actual del billete (por ejemplo, Reservado, Emitido, Cancelado).
+
+-----------------------------------------------------------------------------------
+
+Consideraciones Generales:
+Integridad de Datos:
+
+Todas las entidades deben asegurar la validez y consistencia de los datos almacenados.
+Implementar validaciones para campos obligatorios y formatos correctos (por ejemplo, fechas, emails, números de teléfono).
+Relaciones entre Entidades:
+
+Las entidades deben establecer relaciones adecuadas (por ejemplo, un Booking está asociado a un Hotel y una Room).
+Gestionar las referencias entre entidades para mantener la integridad referencial.
+Gestión de Estados:
+
+Definir claramente los posibles estados de cada entidad y las transiciones permitidas entre ellos.
+Implementar lógica de negocio para manejar cambios de estado (por ejemplo, de Pendiente a Confirmado en una reserva).
+Seguridad y Privacidad:
+
+Proteger información sensible del cliente, cumpliendo con regulaciones de privacidad y protección de datos.
+Controlar el acceso a las entidades y operaciones mediante autenticación y autorización adecuadas.
+Escalabilidad y Mantenibilidad:
+
+Diseñar las entidades y sus interacciones de manera que el sistema pueda escalar con el aumento de datos y usuarios.
+Facilitar el mantenimiento futuro mediante código limpio y documentación adecuada.
